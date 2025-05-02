@@ -18,6 +18,8 @@ class TestUsersRouter:
         name: str = "Bill"
         age: int = 42
 
+        payload = {"name": name, "age": age}
+
         user_request = UserRequest(name=name, age=age)
         command = CreateUserCommand(user_request.name, user_request.age)
         client = TestClient(app)
