@@ -12,10 +12,10 @@ from src.users.infrastructure.repositories.in_memory_user_repository import (
 
 users_router = APIRouter()
 
+user_repository = InMemoryUserRepository()
+
 
 def _get_create_users_command_handler() -> CreateUserCommandHandler:
-    user_repository = InMemoryUserRepository()
-
     return CreateUserCommandHandler(user_repository)
 
 
