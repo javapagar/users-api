@@ -5,7 +5,7 @@ from doublex import Mimic, Spy
 from src.users.application.commands.create_user_command_hadler import (
     CreateUserCommandHandler,
 )
-from src.users.domain.user import User
+from tests.unit.users.domain.user_builder import UserBuilder
 from src.users.application.commands.create_user_command import CreateUserCommand
 from src.users.infrastructure.repositories.in_memory_user_repository import (
     InMemoryUserRepository,
@@ -14,15 +14,12 @@ from src.users.infrastructure.repositories.in_memory_user_repository import (
 
 class TestCreateUserCommandHandler:
     def test_create_user_command_handler(self) -> None:
-        name: str = "Bill"
-        age: int = 42
+        user = UserBuilder().build()
 
-        command = CreateUserCommand(name=name, age=age)
+        command = CreateUserCommand(name=user.name, age=user.age)
 
         user_repository = Mimic(Spy, InMemoryUserRepository)
         handler = CreateUserCommandHandler(user_repository)
-
-        user = User(name=name, age=age)
 
         handler.execute(command)
 
